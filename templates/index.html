@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="text-center mt-5 mb-5">APP API-REST PYTHON - FLASK - MONGODB</h1>
+    </div>
+
+    <div class="container">
+        <div class="row row-col-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2">
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center">Alta producto</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="/products" method="POST">
+                            <label>Nombre</label>
+                            <input type="text" class="form-control mb-3" name="name">
+                            <label>Precio</label>
+                            <input type="text" class="form-control mb-3" name="price">
+                            <label>Cantidad</label>
+                            <input type="text" class="form-control mb-3" name="quantity">
+                            <button class="btn btn-primary" type="submit">Guardar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center">Productos</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <div class="row row-col-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-3">
+                                {% for product in products %}
+
+                                    <div class="col">
+                                        <li class="list-group-item mb-3">
+                                            <form action="/edit/{{product.name}}" method="POST">
+                                                <input type="text" class="form-control" value="{{product.name}}" name="name">
+                                                <small>CANTIDAD</small>
+                                                <input type="text" class="form-control" value="{{product.quantity}}" name="quantity">
+                                                <small>PRECIO</small>
+                                                <input type="text" class="form-control" value="{{product.price}}" name="price">
+                                                <button class="btn btn-primary btn-sm mt-3" type="submit">Editar</button>
+                                                <a href="{{url_for('delete', product_name=product.name)}}" class="btn btn-danger btn-sm mt-3">Eliminar</a>
+
+                                            </form>
+                                        </li>
+                                    </div>
+
+                                {% endfor %}
+                            </div>
+                        </ul>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
